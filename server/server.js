@@ -3,6 +3,8 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const formidable = require('formidable');
 const XLSX = require('xlsx');
+const fs = require('fs');
+
 // import pd = require('pretty-data';);
 const pd = require('pretty-data').pd;
 const MyJsonFunction = require('./JsonGenerator.js');
@@ -45,9 +47,10 @@ app.post('/getfile', (req, res)=>{
         });
         console.log('2',tuteXml);
       }
+      tuteXml = fs.readFileSync('./Output/JSON.json')
       return res.send(
-        // tuteXml
-        pd.xml(tuteXml)
+        
+        pd.json(JSON.parse(tuteXml))
       )
     });
 

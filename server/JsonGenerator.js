@@ -38,7 +38,12 @@ async function folderClear() {
 
 async function MyJsonFunction(theXlsxJson) {
   console.log('Recieved')
+
   baseJson = {}
+  headerJson = {
+    "type": "header",
+    "content": []
+  }
   for(row of theXlsxJson) {
     console.log(row)
     if (row.Key.toUpperCase() === 'ID') {
@@ -77,10 +82,47 @@ async function MyJsonFunction(theXlsxJson) {
     if (row.Key.toUpperCase() === 'TITLE') {
       baseJson['title'] = (typeof row.Value === 'undefined' || row.Value.toUpperCase() === 'FALSE')? false : row.Value;
       console.log('Base:', baseJson)
+    }
+    if (row.Key.toUpperCase() === 'HEADER') {
+      if (row.Value.includes('.jpg') || row.Value.includes('.png')) {
+        if (row.Value.includes(',')) {
+          header = {
+            "type": "images-group"
+          }
+          a = row.Value.split(',')
+          header.images = a
+          // for(b of a) {
+          //   c = b.split(':')
+          //   console.log('meta',c)
+          //   metaJson = `{"${c[0]}":"${c[1]}"}`
+          //   metadata.push(JSON.parse(metaJson))
+          // }
+          headerJson.content.push(header)
+        }
+        else {
+          header = {
+            "type": "image"
+          }
+          header.image = row.Value
+          headerJson.content.push(header)
 
+        }
+      }
+      else {
+        header = {
+          "type": "text"
+        }
+        header.text = row.Value
+        headerJson.content.push(header)
+
+      }
     }
   }
-  return baseJson
+  console.log(headerJson)
+  var completeData = Object.assign({}, baseJson, headerJson);
+  // let pmData = JSON.stringify(XLSX.utils.sheet_to_json(pmWorksheet), null, 2);
+  fs.writeFileSync('./Output/JSON.json', JSON.stringify(completeData));
+  return './Output/JSON.json'
 }
 
 module.exports = MyJsonFunction;
