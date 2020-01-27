@@ -38,7 +38,10 @@ async function folderClear() {
 
 async function MyJsonFunction(theXlsxJson) {
   console.log('Recieved')
-
+  mcqq = {
+    "type": "MCQ",
+    "correct_answer": 0
+  }
   baseJson = {}
   headerJson = {
     "type": "header",
@@ -114,8 +117,11 @@ async function MyJsonFunction(theXlsxJson) {
         }
         header.text = row.Value
         headerJson.content.push(header)
-
       }
+    }
+    if (row.Key.toUpperCase() === 'QUESTIONTYPE') {
+      baseJson['title'] = (typeof row.Value === 'undefined' || row.Value.toUpperCase() === 'FALSE')? false : row.Value;
+      console.log('Base:', baseJson)
     }
   }
   console.log(headerJson)
