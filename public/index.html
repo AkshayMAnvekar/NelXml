@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AnsrSource - Nelson JSON</title>
+  </head>
+<body>
+
+<!-- <div id="demo">
+<h2>The XMLHttpRequest Object</h2>
+<button type="button" onclick="loadDoc('1')">Change Content</button>
+</div>
+<div id="demo1">
+<h2>The XMLHttpRequest Object</h2>
+<button type="button" onclick="loadDoc('2')">Change Content</button>
+</div>
+ -->
+<!-- <form action="/getfile">
+  First name:<br>
+  <input type="text" name="firstname" value="Mickey"><br>
+  Last name:<br>
+  <input type="text" name="lastname" value="Mouse"><br><br>
+  <input type="submit" value="Submit">
+</form> -->
+<h1>AnsrSource</h1>
+<h2>Nelson JSON</h2>
+<p>&nbsp;</p>
+<input id="fileupload" name="myfile" type="file" />
+<input type="button" value="submit" id="submit" onclick="submitform()" />
+<p>&nbsp;</p>
+<textarea id="resultxlsx" rows="40" cols="80"></textarea>
+<p>&nbsp;</p>
+
+<script>
+function submitform(){
+  var uploaded = document.getElementById('fileupload').files;
+  var data = new FormData();
+  var request = new XMLHttpRequest();
+   console.log(uploaded)
+   data.append('file', uploaded[0]);
+   request.open('post', '/getfile');
+   request.send(data);
+   request.onreadystatechange = function() {  //4
+     console.log(this.status)
+     if(this.readyState == 4 && this.status == 200) {
+       document.getElementById('resultxlsx').value = this.responseText;
+       console.log(this);
+     }
+   };
+}
+function loadDoc(type) {
+  if(type==`1`){
+    var xhttp = new XMLHttpRequest();  //1
+
+  //check state on data going and coming back
+
+  xhttp.onreadystatechange = function() {  //4
+    console.log(this.status)
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this)
+      document.getElementById("demo").innerHTML =
+      this.responseText;
+    }
+  };
+
+  xhttp.open("GET", "/test", true);  //2
+  xhttp.send(); //3
+  }
+  if(type==`2`){
+    var xhttp = new XMLHttpRequest();  //1
+
+  //check state on data going and coming back
+
+  xhttp.onreadystatechange = function() {  //4
+    console.log(this.status)
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this)
+      document.getElementById("demo1").innerHTML =
+      this.responseText;
+    }
+  };
+
+  xhttp.open("GET", "/test1", true);  //2
+  xhttp.send(); //3
+  }
+}
+</script>
+</body>
+</html>
