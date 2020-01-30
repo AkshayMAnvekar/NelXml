@@ -84,7 +84,9 @@ async function MyJsonFunction(theXlsxJson) {
     }
     if (row.Key.toUpperCase() === 'TITLE') {
       baseJson['title'] = (typeof row.Value === 'undefined' || row.Value.toUpperCase() === 'FALSE')? false : row.Value;
+      baseJson['content'] = []
       console.log('Base:', baseJson)
+
     }
     if (row.Key.toUpperCase() === 'HEADER') {
       if (row.Value.includes('.jpg') || row.Value.includes('.png')) {
@@ -125,9 +127,10 @@ async function MyJsonFunction(theXlsxJson) {
     }
   }
   console.log(headerJson)
-  var completeData = Object.assign({}, baseJson, headerJson);
+  // var completeData = Object.assign({}, baseJson, headerJson);
+  var completeData = baseJson['content'].push(headerJson)
   // let pmData = JSON.stringify(XLSX.utils.sheet_to_json(pmWorksheet), null, 2);
-  fs.writeFileSync('./Output/JSON.json', JSON.stringify(completeData));
+  fs.writeFileSync('./Output/JSON.json', JSON.stringify(baseJson));
   return './Output/JSON.json'
 }
 

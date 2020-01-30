@@ -47,10 +47,10 @@ app.post('/getfile', (req, res)=>{
         });
         console.log('2',tuteXml);
       }
-      tuteXml = fs.readFileSync('./Output/JSON.json')
+      tuteXml = JSON.parse(fs.readFileSync('./Output/JSON.json'))
       return res.send(
         
-        pd.json(JSON.parse(tuteXml))
+        pd.json(JSON.stringify(tuteXml))
       )
     });
 
