@@ -29,6 +29,9 @@ app.get('/getfile', (req, res)=>{
   res.send('My page 2');
 })
 app.post('/getfile', (req, res)=>{
+  // console.log(req,res)
+  fs.writeFileSync('./Output/req.json', req)
+  fs.writeFileSync('./Output/res.json', res)
   new formidable.IncomingForm().parse(req)
     .on('file', async function(name, file) {
       let workbook = XLSX.readFile(`${file.path}`);
@@ -60,5 +63,5 @@ app.get('*', (req, res)=>{
   res.send('My web page');
 })
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 5000
 app.listen(PORT);

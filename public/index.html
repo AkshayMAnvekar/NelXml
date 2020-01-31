@@ -35,7 +35,9 @@ function submitform(){
   var uploaded = document.getElementById('fileupload').files;
   var data = new FormData();
   var request = new XMLHttpRequest();
-   console.log(uploaded)
+   console.log('Test',uploaded)
+   console.log('Test1', data)
+   console.log('Test2', request)
    data.append('file', uploaded[0]);
    request.open('post', '/getfile');
    request.send(data);
