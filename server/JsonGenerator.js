@@ -37,18 +37,24 @@ async function folderClear() {
 }
 
 async function MyJsonFunction(theXlsxJson) {
-  console.log('Recieved')
+  console.log('Recieved', theXlsxJson)
   mcqq = {
     "type": "MCQ",
     "correct_answer": 0
   }
   baseJson = {}
+  section = {}
+  question = {}
+  marks = {}
+  qGroup = 0
+  secCounter = 0
+  qNo = 0
   headerJson = {
     "type": "header",
     "content": []
   }
   for(row of theXlsxJson) {
-    console.log(row)
+    // console.log(row)
     if (row.Key.toUpperCase() === 'ID') {
       baseJson['id'] = row.Value;
     }
@@ -61,7 +67,7 @@ async function MyJsonFunction(theXlsxJson) {
         tags.push(row.Value)
       }
       baseJson['tags'] = tags;
-      console.log('Base:', baseJson)
+      // console.log('Base:', baseJson)
     }
     if (row.Key.toUpperCase() === 'METADATA') {
       metadata = []
@@ -70,7 +76,7 @@ async function MyJsonFunction(theXlsxJson) {
         a = row.Value.split(',')
         for(b of a) {
           c = b.split(':')
-          console.log('meta',c)
+          // console.log('meta',c)
           metaJson = `{"${c[0]}":"${c[1]}"}`
           metadata.push(JSON.parse(metaJson))
         }
@@ -85,7 +91,7 @@ async function MyJsonFunction(theXlsxJson) {
     if (row.Key.toUpperCase() === 'TITLE') {
       baseJson['title'] = (typeof row.Value === 'undefined' || row.Value.toUpperCase() === 'FALSE')? false : row.Value;
       baseJson['content'] = []
-      console.log('Base:', baseJson)
+      // console.log('Base:', baseJson)
 
     }
     if (row.Key.toUpperCase() === 'HEADER') {
@@ -122,15 +128,113 @@ async function MyJsonFunction(theXlsxJson) {
       }
     }
     if (row.Key.toUpperCase() === 'QUESTIONTYPE') {
-      baseJson['title'] = (typeof row.Value === 'undefined' || row.Value.toUpperCase() === 'FALSE')? false : row.Value;
-      console.log('Base:', baseJson)
+      qGroup = row.Group
+      ++qNo
+      if (!question.hasOwnProperty(qGroup)) {
+        question[`${qGroup}`] = {}
+      }
+      if (row.Value.toUpperCase().includes('MCQ')) {
+        question[`${qGroup}`][`${qNo}`] = {
+          "type": `${row.Value}`,
+          // "options": []
+        }
+      }
+      else {
+        question[`${qGroup}`][`${qNo}`] = {
+          "type": `${row.Value}`,
+          "lines": 1
+        }
+      }
+    }
+    if (row.Key.toUpperCase() === 'QUESTION') {
+      question[`${qGroup}`][`${qNo}`]['prompt'] = row.Value
+    }
+    if (/C\d/.test(row.Key.toUpperCase())) {
+      if (!question[`${qGroup}`][`${qNo}`].hasOwnProperty('options')) {
+        question[`${qGroup}`][`${qNo}`]['options'] = []
+      }
+      question[`${qGroup}`][`${qNo}`]['options'].push(row.Value)
+    }
+    if (row.Key.toUpperCase() === 'ANSWER') {
+      question[`${qGroup}`][`${qNo}`]['correct_answer'] = row.Value - 1
+    }
+    if (row.Key.toUpperCase() === 'MARKS') {
+      if (!marks.hasOwnProperty(qGroup)) {
+        marks[`${qGroup}`] = {}
+      }
+      marks[`${qGroup}`][`${qNo}`] = row.Value
+    }
+    // console.log("Section", section)
+    if (row.Key.toUpperCase() === 'SECTION' && typeof row.Group != 'undefined') {
+      // console.log(row.Key.toUpperCase())
+      ++secCounter
+      if (row.Group > 1) {
+        if (!marks.hasOwnProperty('1')) {
+          marks['1'] = {}
+        }
+        marks['1'][`${qNo+1}`] = false
+      }
+      section[`${row.Group}`] = {
+        "type": "assembly",
+        "prompt": false,
+        "marks": [],
+        "questions": []
+      }
+      if (row.Value) {
+        section[`${row.Group}`]['prompt'] = row.Value
+      }
+      
+    }
+    // console.log("Section", section)
+    // if (row.Key.toUpperCase() === 'QUESTIONTYPE') {
+    //   tags = []
+    //   if (row.Value.includes(',')) {
+    //     tags = row.Value.split(',')
+    //   }
+    //   else {
+    //     tags.push(row.Value)
+    //   }
+    //   baseJson['tags'] = tags;
+    // }
+  }
+  console.log(secCounter)
+  for (i = secCounter; i > 1; i--) {
+    // console.log('Test1')
+    for(var q in question[secCounter]) {
+      // console.log('Test2',question[secCounter][q])
+      section[i].marks.push(marks[i][q])
+      section[i]['questions'].push(question[secCounter][q])
     }
   }
-  console.log(headerJson)
+  for (j in marks['1']) {
+    secC = 2
+    // console.log('Test',j, marks[1][j])
+    if (typeof marks[1][j] === 'number') {
+      // console.log('Test2',j)
+      section[1].marks.push(marks[1][j])
+      section[1]['questions'].push(question[1][j])
+      // section['1']['questions'].push()
+    }
+    else if (typeof marks[1][j] === 'boolean') {
+      console.log('Test3',section[secC])
+      section[1].marks.push(marks[1][j])
+      section[1]['questions'].push(section[secC])
+      ++secC
+    }
+    else if (typeof marks[1][j] === 'string') {
+      console.log('Test3',j)
+    }
+  }
+
+  console.log('Section: ',section)
+  // console.log(headerJson)
   // var completeData = Object.assign({}, baseJson, headerJson);
   var completeData = baseJson['content'].push(headerJson)
+  var completeData = baseJson['content'].push(section['1'])
   // let pmData = JSON.stringify(XLSX.utils.sheet_to_json(pmWorksheet), null, 2);
   fs.writeFileSync('./Output/JSON.json', JSON.stringify(baseJson));
+  // console.log('Marks:', marks)
+  // console.log('Question:', question, 'Marks:', marks)
   return './Output/JSON.json'
 }
 
