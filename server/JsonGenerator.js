@@ -37,7 +37,7 @@ async function folderClear() {
 }
 
 async function MyJsonFunction(theXlsxJson) {
-  console.log('Recieved', theXlsxJson)
+  // console.log('Recieved', theXlsxJson)
   mcqq = {
     "type": "MCQ",
     "correct_answer": 0
@@ -128,7 +128,12 @@ async function MyJsonFunction(theXlsxJson) {
       }
     }
     if (row.Key.toUpperCase() === 'QUESTIONTYPE') {
-      qGroup = row.Group
+      if(row.Group) {
+        qGroup = row.Group
+      }
+      else {
+        qGroup = 0
+      }
       ++qNo
       if (!question.hasOwnProperty(qGroup)) {
         question[`${qGroup}`] = {}
@@ -185,57 +190,48 @@ async function MyJsonFunction(theXlsxJson) {
       }
       
     }
-    // console.log("Section", section)
-    // if (row.Key.toUpperCase() === 'QUESTIONTYPE') {
-    //   tags = []
-    //   if (row.Value.includes(',')) {
-    //     tags = row.Value.split(',')
-    //   }
-    //   else {
-    //     tags.push(row.Value)
-    //   }
-    //   baseJson['tags'] = tags;
-    // }
   }
   console.log(secCounter)
-  for (i = secCounter; i > 1; i--) {
-    // console.log('Test1')
-    for(var q in question[secCounter]) {
-      // console.log('Test2',question[secCounter][q])
-      section[i].marks.push(marks[i][q])
-      section[i]['questions'].push(question[secCounter][q])
+  if (section['1']) {
+    for (i = secCounter; i > 1; i--) {
+      for(var q in question[secCounter]) {
+        section[i].marks.push(marks[i][q])
+        section[i]['questions'].push(question[secCounter][q])
+      }
+    }
+    for (j in marks['1']) {
+      secC = 2
+      if (typeof marks[1][j] === 'number') {
+        section[1].marks.push(marks[1][j])
+        section[1]['questions'].push(question[1][j])
+      }
+      else if (typeof marks[1][j] === 'boolean') {
+        console.log('Test3',section[secC])
+        section[1].marks.push(marks[1][j])
+        section[1]['questions'].push(section[secC])
+        ++secC
+      }
+      else if (typeof marks[1][j] === 'string') {
+        console.log('Test3',j)
+      }
     }
   }
-  for (j in marks['1']) {
-    secC = 2
-    // console.log('Test',j, marks[1][j])
-    if (typeof marks[1][j] === 'number') {
-      // console.log('Test2',j)
-      section[1].marks.push(marks[1][j])
-      section[1]['questions'].push(question[1][j])
-      // section['1']['questions'].push()
-    }
-    else if (typeof marks[1][j] === 'boolean') {
-      console.log('Test3',section[secC])
-      section[1].marks.push(marks[1][j])
-      section[1]['questions'].push(section[secC])
-      ++secC
-    }
-    else if (typeof marks[1][j] === 'string') {
-      console.log('Test3',j)
+  var completeData = baseJson['content'].push(headerJson)
+  if (question['0']) {
+    for (q in question['0']) {
+      baseJson['content'].push(question['0'][q])
     }
   }
 
-  console.log('Section: ',section)
-  // console.log(headerJson)
+  // console.log('Section: ',section)
   // var completeData = Object.assign({}, baseJson, headerJson);
-  var completeData = baseJson['content'].push(headerJson)
-  var completeData = baseJson['content'].push(section['1'])
+  if (section[1]){
+    completeData = baseJson['content'].push(section['1'])
+  }
   // let pmData = JSON.stringify(XLSX.utils.sheet_to_json(pmWorksheet), null, 2);
   fs.writeFileSync('./Output/JSON.json', JSON.stringify(baseJson));
-  // console.log('Marks:', marks)
-  // console.log('Question:', question, 'Marks:', marks)
-  return './Output/JSON.json'
+  return baseJson
+  // return './Output/JSON.json'
 }
 
 module.exports = MyJsonFunction;

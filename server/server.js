@@ -4,6 +4,10 @@ const bodyParser = require('body-parser');
 const formidable = require('formidable');
 const XLSX = require('xlsx');
 const fs = require('fs');
+// const AdmZip = require('adm-zip');
+var archiver = require('archiver');
+
+
 
 // import pd = require('pretty-data';);
 const pd = require('pretty-data').pd;
@@ -30,30 +34,39 @@ app.get('/getfile', (req, res)=>{
 })
 app.post('/getfile', (req, res)=>{
   // console.log(req,res)
-  fs.writeFileSync('./Output/req.json', req)
-  fs.writeFileSync('./Output/res.json', res)
+  // fs.writeFileSync('./Output/req.json', req)
+  // fs.writeFileSync('./Output/res.json', res)
   new formidable.IncomingForm().parse(req)
     .on('file', async function(name, file) {
       let workbook = XLSX.readFile(`${file.path}`);
       let xlsxJSON = '';
-      let tuteXml = '';
+      let tuteXml = {};
       // console.log(workbook)
       let sheet_name_list = workbook.SheetNames;
+      var a = 0
       for(let x of sheet_name_list){
         xlsxJSON = XLSX.utils.sheet_to_json(workbook.Sheets[x], {defVal:""});
         console.log(xlsxJSON);
-        //  let xml = MyJsonFunction(xlsxJSON);
-        //  console.log(pd.xml(xml));
         await MyJsonFunction(xlsxJSON).then(value => {
-          tuteXml += value
+          ++a
+          tuteXml[a] = value
           console.log('1',tuteXml)
+          fs.writeFileSync(`./Output/JSONS/${x}.json`, JSON.stringify(baseJson));
+          
         });
-        console.log('2',tuteXml);
       }
-      tuteXml = JSON.parse(fs.readFileSync('./Output/JSON.json'))
+      var output = fs.createWriteStream('./public/Output.zip');
+      var archive = archiver('zip', {
+        zlib: { level: 9 } // Sets the compression level.
+      });
+      archive.pipe(output);
+      archive.directory('./Output/JSONS', false);
+      archive.finalize();
+      // tuteXml = JSON.parse(fs.readFileSync('./Output/JSON.json'))
       return res.send(
-        
-        pd.json(JSON.stringify(tuteXml))
+        // './Output/JSON.json',
+        JSON.stringify(tuteXml)
+        // pd.json(JSON.stringify(tuteXml))
       )
     });
 

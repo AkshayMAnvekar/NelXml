@@ -27,64 +27,76 @@
 <input id="fileupload" name="myfile" type="file" />
 <input type="button" value="submit" id="submit" onclick="submitform()" />
 <p>&nbsp;</p>
-<textarea id="resultxlsx" rows="40" cols="80"></textarea>
+<div id="Json"></div>
+<!-- <textarea id="resultxlsx" rows="40" cols="80"></textarea> -->
 <p>&nbsp;</p>
-
+<script type="text/javascript" src="vkbeautify.js"></script>
 <script>
 function submitform(){
   var uploaded = document.getElementById('fileupload').files;
   var data = new FormData();
   var request = new XMLHttpRequest();
-   console.log('Test',uploaded)
-   console.log('Test1', data)
-   console.log('Test2', request)
    data.append('file', uploaded[0]);
    request.open('post', '/getfile');
    request.send(data);
    request.onreadystatechange = function() {  //4
      console.log(this.status)
      if(this.readyState == 4 && this.status == 200) {
-       document.getElementById('resultxlsx').value = this.responseText;
-       console.log(this);
+      var jsons = this.responseText;
+      var html = ''
+      jsons = JSON.parse(jsons)
+      for(j in jsons) {
+        html += `<textarea id="results" rows="40" cols="80">${vkbeautify.json(JSON.stringify(jsons[j], 2))}</textarea><p></p>`
+      }
+      document.getElementById("Json").innerHTML = html;
      }
    };
 }
-function loadDoc(type) {
-  if(type==`1`){
-    var xhttp = new XMLHttpRequest();  //1
+// function loadDoc(type) {
+//   if(type==`1`){
+//     var xhttp = new XMLHttpRequest();  //1
 
-  //check state on data going and coming back
+//   //check state on data going and coming back
 
-  xhttp.onreadystatechange = function() {  //4
-    console.log(this.status)
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(this)
-      document.getElementById("demo").innerHTML =
-      this.responseText;
-    }
-  };
+//   xhttp.onreadystatechange = function() {  //4
+//     console.log(this.status)
+//     if (this.readyState == 4 && this.status == 200) {
+//       console.log(this)
+//       document.getElementById("demo").innerHTML =
+//       this.responseText;
+//     }
+//   };
 
-  xhttp.open("GET", "/test", true);  //2
-  xhttp.send(); //3
-  }
-  if(type==`2`){
-    var xhttp = new XMLHttpRequest();  //1
+//   xhttp.open("GET", "/test", true);  //2
+//   xhttp.send(); //3
+//   }
+//   if(type==`2`){
+//     var xhttp = new XMLHttpRequest();  //1
 
-  //check state on data going and coming back
+//   //check state on data going and coming back
 
-  xhttp.onreadystatechange = function() {  //4
-    console.log(this.status)
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(this)
-      document.getElementById("demo1").innerHTML =
-      this.responseText;
-    }
-  };
+//   xhttp.onreadystatechange = function() {  //4
+//     console.log(this.status)
+//     if (this.readyState == 4 && this.status == 200) {
+//       console.log('response',this.responseText)
+//       document.getElementById("demo1").innerHTML =
+//       this.responseText;
+//       var jsons = this.responseText;
+//       json = JSON.parse(jsons);
+//       var html = ''
+//       for(var j of jsons) {
+//         html += `<textarea id="resultxlsx" rows="40" cols="80">${j}</textarea>`
+//       }
+//       console.log(html)
+//       document.getElementById("Json").innerHTML = html;
 
-  xhttp.open("GET", "/test1", true);  //2
-  xhttp.send(); //3
-  }
-}
+//     }
+//   };
+
+//   xhttp.open("GET", "/test1", true);  //2
+//   xhttp.send(); //3
+//   }
+// }
 </script>
 </body>
 </html>
