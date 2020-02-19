@@ -46,6 +46,7 @@ async function MyJsonFunction(theXlsxJson) {
   section = {}
   question = {}
   marks = {}
+  interludes = {}
   qGroup = 0
   secCounter = 0
   qNo = 0
@@ -69,8 +70,11 @@ async function MyJsonFunction(theXlsxJson) {
         tags.push(row.Value)
       }
       baseJson['tags'] = tags;
+      baseJson['metadata'] = metadata;
+
       // console.log('Base:', baseJson)
     }
+    console.log('upper test',)
     if (row.Key.toUpperCase() === 'METADATA') {
       // metaJson = {}
       if (row.Value.includes(',')) {
@@ -236,7 +240,7 @@ async function MyJsonFunction(theXlsxJson) {
       metadata.push(JSON.parse(metaJson))
     }
     if (row.Key.toUpperCase() === 'LINESPRINTED') {
-      metaJson = `{"linesPrinted":"${row.Value}"}`
+      metaJson = `{"linesPrinted":"${(typeof row.Value != 'undefined')? row.Value : 0 }"}`
       metadata.push(JSON.parse(metaJson))
     }
 
