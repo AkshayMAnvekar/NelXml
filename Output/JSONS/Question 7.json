@@ -1,0 +1,46 @@
+{
+  "id": "hashid",
+  "tags": [
+    "tag1",
+    "tag2"
+  ],
+  "metadata": [
+    {
+      "key": "value"
+    },
+    {
+      "key": "value"
+    }
+  ],
+  "title": "Question 7",
+  "content": [
+    {
+      "type": "header",
+      "content": [
+        {
+          "type": "text",
+          "text": "Hydrogen peroxide is a toxic by-product of many biochemical reactions. Cells break down hydrogen peroxide into water and oxygen gas with the help of the intracellular enzyme catalase. The optimum pH of catalase is 7.\\n\\nA Biology student measured the activity of catalase by recording the volume of oxygen gas produced from the decomposition of hydrogen peroxide when a catalase suspension was added to it. The catalase suspension was made from ground, raw potato mixed with distilled water. The student performed two tests and graphed the results."
+        },
+        {
+          "type": "image",
+          "image": "29/wu3EeR6Ti2.png"
+        },
+        {
+          "type": "text",
+          "text": "Test 1 used 5 mL of 3% hydrogen peroxide solution and 0.5 mL of catalase suspension, and was conducted at 20 °C in a buffer solution of pH 7.\\n\\nTest 2 was carried out under identical conditions to Test 1, except for one factor that the student changed."
+        }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "prompt": "The student then performed more tests by varying the pH of the buffer solution. It is expected that",
+      "options": [
+        "at pH 6 the reaction will cease.",
+        "at pH 9 the reaction will be faster.",
+        "at pH 2 and pH 10 very little oxygen will be produced.",
+        "a greater volume of oxygen will be produced each time the pH is increased."
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

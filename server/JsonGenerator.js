@@ -53,6 +53,8 @@ async function MyJsonFunction(theXlsxJson) {
     "type": "header",
     "content": []
   }
+  metadata = []
+
   for(row of theXlsxJson) {
     // console.log(row)
     if (row.Key.toUpperCase() === 'ID') {
@@ -70,7 +72,6 @@ async function MyJsonFunction(theXlsxJson) {
       // console.log('Base:', baseJson)
     }
     if (row.Key.toUpperCase() === 'METADATA') {
-      metadata = []
       // metaJson = {}
       if (row.Value.includes(',')) {
         a = row.Value.split(',')
@@ -95,10 +96,10 @@ async function MyJsonFunction(theXlsxJson) {
 
     }
     if (row.Key.toUpperCase() === 'HEADER') {
-      if (row.Value.includes('.jpg') || row.Value.includes('.png')) {
+      if (row.Value.includes('.jpg') || row.Value.includes('.png') || row.Value.includes('.JPG') || row.Value.includes('.PNG')) {
         if (row.Value.includes(',')) {
           header = {
-            "type": "images-group"
+            "type": "image-group"
           }
           a = row.Value.split(',')
           header.images = a
@@ -127,7 +128,7 @@ async function MyJsonFunction(theXlsxJson) {
         headerJson.content.push(header)
       }
     }
-    if (row.Key.toUpperCase() === 'QUESTIONTYPE') {
+    if (row.Key.toUpperCase() === 'QTYPE') {
       if(row.Group) {
         qGroup = row.Group
       }
@@ -154,20 +155,102 @@ async function MyJsonFunction(theXlsxJson) {
     if (row.Key.toUpperCase() === 'QUESTION') {
       question[`${qGroup}`][`${qNo}`]['prompt'] = row.Value
     }
+    if (row.Key.toUpperCase() === 'LINES') {
+      question[`${qGroup}`][`${qNo}`]['lines'] = row.Value
+    }
     if (/C\d/.test(row.Key.toUpperCase())) {
       if (!question[`${qGroup}`][`${qNo}`].hasOwnProperty('options')) {
         question[`${qGroup}`][`${qNo}`]['options'] = []
       }
       question[`${qGroup}`][`${qNo}`]['options'].push(row.Value)
     }
-    if (row.Key.toUpperCase() === 'ANSWER') {
+    if (row.Key.toUpperCase() === 'ANSWER' && question[`${qGroup}`][`${qNo}`]['type'].includes('MCQ')) {
       question[`${qGroup}`][`${qNo}`]['correct_answer'] = row.Value - 1
     }
+    if (row.Key.toUpperCase() === 'GLOBALLYUNIQUEID') {
+      metaJson = `{"globallyUniqueId":"${row.Value}"}`
+      metadata.push(JSON.parse(metaJson))
+    }
+    if (row.Key.toUpperCase() === 'STUDYDESIGNYEAR') {
+      metaJson = `{"studyDesignYear":"${row.Value}"}`
+      metadata.push(JSON.parse(metaJson))
+    }
+    if (row.Key.toUpperCase() === 'YEARLEVEL') {
+      metaJson = `{"yearLevel":"${row.Value}"}`
+      metadata.push(JSON.parse(metaJson))
+    }
+    if (row.Key.toUpperCase() === 'CREATEDBY') {
+      metaJson = `{"createdBy":"${row.Value}"}`
+      metadata.push(JSON.parse(metaJson))
+    }
+    if (row.Key.toUpperCase() === 'QUESTIONTYPE') {
+      metaJson = `{"questionType":"${row.Value}"}`
+      metadata.push(JSON.parse(metaJson))
+    }
+    if (row.Key.toUpperCase() === 'COURSE') {
+      metaJson = `{"course":"${row.Value}"}`
+      metadata.push(JSON.parse(metaJson))
+    }
+    if (row.Key.toUpperCase() === 'SUBJECT') {
+      metaJson = `{"subject":"${row.Value}"}`
+      metadata.push(JSON.parse(metaJson))
+    }
+    if (row.Key.toUpperCase() === 'VCAAREFERENCE') {
+      metaJson = `{"vcaaReference":"${row.Value}"}`
+      metadata.push(JSON.parse(metaJson))
+    }
+    if (row.Key.toUpperCase() === 'DIFFICULTY') {
+      metaJson = `{"difficulty":"${row.Value}"}`
+      metadata.push(JSON.parse(metaJson))
+    }
+    if (row.Key.toUpperCase() === 'TIME') {
+      metaJson = `{"time":"${row.Value}"}`
+      metadata.push(JSON.parse(metaJson))
+    }
+    if (row.Key.toUpperCase() === 'TMARKS') {
+      metaJson = `{"marks":"${row.Value}"}`
+      metadata.push(JSON.parse(metaJson))
+    }
+    if (row.Key.toUpperCase() === 'YEARGENERATED') {
+      metaJson = `{"yearGenerated":"${row.Value}"}`
+      metadata.push(JSON.parse(metaJson))
+    }
+    if (row.Key.toUpperCase() === 'STATE') {
+      metaJson = `{"state":"${row.Value}"}`
+      metadata.push(JSON.parse(metaJson))
+    }
+    if (row.Key.toUpperCase() === 'ONLINEEXAM') {
+      metaJson = `{"onlineExam":"${row.Value}"}`
+      metadata.push(JSON.parse(metaJson))
+    }
+    if (row.Key.toUpperCase() === 'PRINTABLE') {
+      metaJson = `{"printable":"${row.Value}"}`
+      metadata.push(JSON.parse(metaJson))
+    }
+    if (row.Key.toUpperCase() === 'TEACHERONLY') {
+      metaJson = `{"teacherOnly":"${row.Value}"}`
+      metadata.push(JSON.parse(metaJson))
+    }
+    if (row.Key.toUpperCase() === 'TRIALQUESTION') {
+      metaJson = `{"trialQuestion":"${row.Value}"}`
+      metadata.push(JSON.parse(metaJson))
+    }
+    if (row.Key.toUpperCase() === 'LINESPRINTED') {
+      metaJson = `{"linesPrinted":"${row.Value}"}`
+      metadata.push(JSON.parse(metaJson))
+    }
+
     if (row.Key.toUpperCase() === 'MARKS') {
       if (!marks.hasOwnProperty(qGroup)) {
         marks[`${qGroup}`] = {}
       }
       marks[`${qGroup}`][`${qNo}`] = row.Value
+    }
+    if (row.Key.toUpperCase() === 'QHEADER') {
+      if (!interludes.hasOwnProperty(qGroup)) {
+        interludes[`${qGroup}`] = {}
+      }
+      interludes[`${qGroup}`][`${qNo}`] = row.Value
     }
     // console.log("Section", section)
     if (row.Key.toUpperCase() === 'SECTION' && typeof row.Group != 'undefined') {
@@ -183,6 +266,7 @@ async function MyJsonFunction(theXlsxJson) {
         "type": "assembly",
         "prompt": false,
         "marks": [],
+        "interludes": [],
         "questions": []
       }
       if (row.Value) {

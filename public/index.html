@@ -43,10 +43,10 @@ function submitform(){
      console.log(this.status)
      if(this.readyState == 4 && this.status == 200) {
       var jsons = this.responseText;
-      var html = ''
+      var html = `<p>Download all JSON's <a href="./Output.zip" target="_blank" rel="noopener" title="JSON Zip">here</a>.</p>`
       jsons = JSON.parse(jsons)
       for(j in jsons) {
-        html += `<textarea id="results" rows="40" cols="80">${vkbeautify.json(JSON.stringify(jsons[j], 2))}</textarea><p></p>`
+        html += `<textarea id="results" rows="40" cols="80">${vkbeautify.json(JSON.stringify(jsons[j]), 2 )}</textarea>`
       }
       document.getElementById("Json").innerHTML = html;
      }

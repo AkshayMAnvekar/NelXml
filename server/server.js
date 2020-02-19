@@ -6,14 +6,15 @@ const XLSX = require('xlsx');
 const fs = require('fs');
 // const AdmZip = require('adm-zip');
 var archiver = require('archiver');
-
-
-
 // import pd = require('pretty-data';);
 const pd = require('pretty-data').pd;
 const MyJsonFunction = require('./JsonGenerator.js');
-
+const FolderClearFunction = require('./folderClear.js');
 const app = express();
+
+async function sleep(millis) {
+  return new Promise(resolve => setTimeout(resolve, millis));
+}
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -44,6 +45,8 @@ app.post('/getfile', (req, res)=>{
       // console.log(workbook)
       let sheet_name_list = workbook.SheetNames;
       var a = 0
+      await FolderClearFunction(`./Output/JSONS`)
+      sleep(1000)
       for(let x of sheet_name_list){
         xlsxJSON = XLSX.utils.sheet_to_json(workbook.Sheets[x], {defVal:""});
         console.log(xlsxJSON);
@@ -51,7 +54,7 @@ app.post('/getfile', (req, res)=>{
           ++a
           tuteXml[a] = value
           console.log('1',tuteXml)
-          fs.writeFileSync(`./Output/JSONS/${x}.json`, JSON.stringify(baseJson));
+          fs.writeFileSync(`./Output/JSONS/${x}.json`, pd.json(JSON.stringify(baseJson)));
           
         });
       }
@@ -76,5 +79,5 @@ app.get('*', (req, res)=>{
   res.send('My web page');
 })
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 3000
 app.listen(PORT);

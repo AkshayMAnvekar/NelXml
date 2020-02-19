@@ -1,0 +1,67 @@
+{
+  "id": "hashid",
+  "tags": [
+    "tag1",
+    "tag2"
+  ],
+  "metadata": [
+    {
+      "key": "value"
+    },
+    {
+      "key": "value"
+    }
+  ],
+  "title": "Question 7-2015",
+  "content": [
+    {
+      "type": "header",
+      "content": [
+        {
+          "type": "text",
+          "text": "Glucocorticoid (GC) is a hormone in rats that binds to a receptor, as shown in the diagram below. The glucocorticoid-receptor complex (GCR-complex) moves into the nucleus and attaches to the DNA, causing transcription to begin."
+        },
+        {
+          "type": "image",
+          "image": "12/nmA2VJHE56.png"
+        },
+        {
+          "type": "text",
+          "text": "The location where the GCR-complex attaches to the DNA is called the glucocorticoid response element (GRE). The GRE is located approximately 250 base-pairs upstream of the growth hormone (GH) gene. Following the attachment of the GCR-complex to the GRE, an enzyme catalyses the transcription of the gene."
+        }
+      ]
+    },
+    {
+      "type": "assembly",
+      "prompt": false,
+      "marks": [
+        1,
+        3,
+        2,
+        1
+      ],
+      "questions": [
+        {
+          "type": "shortanswer",
+          "lines": 1,
+          "prompt": "Name the enzyme that catalyses transcription."
+        },
+        {
+          "type": "shortanswer",
+          "lines": 1,
+          "prompt": "Name the transcription product, molecule S, and describe the processing that molecule S undergoes before it exits the nucleus."
+        },
+        {
+          "type": "shortanswer",
+          "lines": 1,
+          "prompt": "In the rat pituitary gland, GC stimulates the production of the growth hormone protein. However, in the rat liver, GC stimulates the production of the enzyme tryptophan oxygenase.\\n\\nGiven that the genetic sequence is identical in all somatic rat cells, explain how the production of distinct proteins in different cell types could occur."
+        },
+        {
+          "type": "shortanswer",
+          "lines": 1,
+          "prompt": "If a human gene is inserted into the DNA of rat pituitary gland cells, these genetically engineered cells can be used to produce human growth hormone.\\n\\nWhat characteristic of the genetic code enables a human protein, such as human growth hormone, to be made by rat cells?"
+        }
+      ]
+    }
+  ]
+}

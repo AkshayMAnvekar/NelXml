@@ -1,0 +1,83 @@
+{
+  "id": "hashid",
+  "tags": [
+    "tag1",
+    "tag2"
+  ],
+  "metadata": [
+    {
+      "key": "value"
+    },
+    {
+      "key": "value"
+    }
+  ],
+  "title": "Question 6-2017",
+  "content": [
+    {
+      "type": "header",
+      "content": [
+        {
+          "type": "text",
+          "text": "Research suggests that the microorganisms that normally live on the skin have a very complex and beneficial relationship with their hosts. __Staphylococcus epidermidis__ is one of the most common species of bacteria on human skin. To investigate the possible beneficial role of this bacterium, scientists designed an experiment as follows.\\n\\nTwo groups of mice were used. The mice in Group 1 had S. __epidermidis__ applied to their skin. The mice in both Group 1 and Group 2 were infected with a pathogenic fungus. The mice were left for several days, and then scientists measured the levels of antigen-presenting cells (APCs) and cytotoxic T cells (Tc cells) in the skin of the mice from both groups."
+        }
+      ]
+    },
+    {
+      "type": "shortanswer",
+      "lines": 1,
+      "prompt": "Innate immunity helps protect humans from invading pathogens.\r\nHow does the skin help protect humans from invading pathogens?"
+    },
+    {
+      "type": "shortanswer",
+      "lines": 1
+    },
+    {
+      "type": "assembly",
+      "prompt": false,
+      "marks": [
+        2,
+        1,
+        false
+      ],
+      "questions": [
+        {
+          "type": "shortanswer",
+          "lines": 1,
+          "prompt": "Describe the role of APCs in an immune response."
+        },
+        {
+          "type": "shortanswer",
+          "lines": 1,
+          "prompt": "In which type of immune response would the Tc cells and APCs play a part?"
+        },
+        {
+          "type": "assembly",
+          "prompt": "In addition to the levels of APCs and Tc cells, the growth of the pathogenic fungus was also measured in all of the mice. The results of this experiment are summarised in the table below.(image)",
+          "marks": [
+            1,
+            1,
+            2
+          ],
+          "questions": [
+            {
+              "type": "shortanswer",
+              "lines": 1,
+              "prompt": "State a hypothesis that this experiment is testing."
+            },
+            {
+              "type": "shortanswer",
+              "lines": 1,
+              "prompt": "\tExplain which group of mice served as a control in this experiment.\t"
+            },
+            {
+              "type": "shortanswer",
+              "lines": 1,
+              "prompt": "Explain the difference in growth of the pathogenic fungus in the two groups of mice."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

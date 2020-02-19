@@ -1,0 +1,66 @@
+{
+  "id": "hashid",
+  "tags": [
+    "tag1",
+    "tag2"
+  ],
+  "metadata": [
+    {
+      "key": "value"
+    },
+    {
+      "key": "value"
+    }
+  ],
+  "title": "Question 2",
+  "content": [
+    {
+      "type": "header",
+      "content": [
+        {
+          "type": "text",
+          "text": "The following diagram shows cells involved in detecting and responding to itch stimuli. An example of an itch stimulus is the bite of an insect, which can result in itchy skin. The response to an itch is scratching."
+        },
+        {
+          "type": "image",
+          "image": "25/cFZIeTZEBL.png"
+        }
+      ]
+    },
+    {
+      "type": "assembly",
+      "prompt": false,
+      "marks": [
+        false,
+        4
+      ],
+      "questions": [
+        {
+          "type": "assembly",
+          "prompt": false,
+          "marks": [
+            1,
+            3
+          ],
+          "questions": [
+            {
+              "type": "shortanswer",
+              "lines": 1,
+              "prompt": "Using an arrow, indicate on the diagram above the position of one synapse. "
+            },
+            {
+              "type": "shortanswer",
+              "lines": 1,
+              "prompt": "Describe how a signal is transferred across the synapse."
+            }
+          ]
+        },
+        {
+          "type": "shortanswer",
+          "lines": 1,
+          "prompt": "Scientists are currently studying the molecular mechanisms that cause itchy skin. It has been discovered that many different receptors and signalling molecules are involved. Two specific itch receptors (H1 and TLR7) have been identified and their cellular locations are shown in the table below.\\n\\nComplete the table by suggesting the chemical nature of the signalling molecule that is specific for each receptor. Justify your answers."
+        }
+      ]
+    }
+  ]
+}

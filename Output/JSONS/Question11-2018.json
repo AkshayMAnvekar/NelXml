@@ -1,0 +1,75 @@
+{
+  "id": "hashid",
+  "tags": [
+    "tag1",
+    "tag2"
+  ],
+  "metadata": [
+    {
+      "key": "value"
+    },
+    {
+      "key": "value"
+    }
+  ],
+  "title": "Question 11-2018",
+  "content": [
+    {
+      "type": "header",
+      "content": [
+        {
+          "type": "text",
+          "text": "Elsa read that red algae survive at greater water depths than green algae because of a pigment in the red algae called phycoerythrin. This pigment enables the algae to absorb more of the green light available at greater water depths. Elsa decided to investigate this by carrying out an experiment.\\n\\nUsing a standard technique, the single-celled algae were trapped in jelly balls. One set of balls contained green algae and another set contained red algae.\\n\\nTo measure the rate of photosynthesis, Elsa used a stopwatch and the pH indicator phenol red. Phenol red changes colour in solutions with different concentrations of carbon dioxide. In low carbon dioxide concentrations, phenol red is pink and in higher carbon dioxide concentrations it is yellow.\r\nElsa placed the jelly balls into test tubes and covered them with a solution containing dissolved carbon dioxide. Phenol red indicator was added to each solution.\\n\\nThe diagram below shows the set-up of Elsa’s experiment."
+        },
+        {
+          "type": "image",
+          "image": "33/0aU8iCLguo.png"
+        }
+      ]
+    },
+    {
+      "type": "assembly",
+      "prompt": false,
+      "marks": [
+        1,
+        3,
+        2,
+        2,
+        1,
+        2
+      ],
+      "questions": [
+        {
+          "type": "shortanswer",
+          "lines": 1,
+          "prompt": "State the hypothesis that Elsa was testing."
+        },
+        {
+          "type": "shortanswer",
+          "lines": 1,
+          "prompt": "List three variables that would need to be controlled to ensure the experiment produced valid results."
+        },
+        {
+          "type": "shortanswer",
+          "lines": 1,
+          "prompt": "State the independent variable and the dependent variable in this experiment."
+        },
+        {
+          "type": "shortanswer",
+          "lines": 1,
+          "prompt": "What results would disprove the hypothesis of Elsa’s experiment?"
+        },
+        {
+          "type": "shortanswer",
+          "lines": 1,
+          "prompt": "\tElsa’s laboratory partner suggested that they should also set up an identical experiment but keep the test tubes and their contents in the dark.\\n\\nExplain why this is a good suggestion."
+        },
+        {
+          "type": "shortanswer",
+          "lines": 1,
+          "prompt": "Elsa’s teacher said that even if the students completed the additional experiment in the dark and even if all of those results supported the hypothesis, there may still be other plausible explanations for their results.\\n\\nSuggest **two** other explanations to which the teacher could be referring."
+        }
+      ]
+    }
+  ]
+}

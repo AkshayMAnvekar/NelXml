@@ -1,0 +1,33 @@
+{
+  "id": "hashid",
+  "tags": [
+    "tag1",
+    "tag2"
+  ],
+  "metadata": [
+    {
+      "key": "value"
+    },
+    {
+      "key": "value"
+    }
+  ],
+  "title": "Question 9",
+  "content": [
+    {
+      "type": "header",
+      "content": []
+    },
+    {
+      "type": "MCQ",
+      "prompt": "Which of the following gives the inputs and outputs of the electron transport chain in an animal cell?",
+      "options": [
+        "**Input:**NADH, ADP, oxygen, Pi\\n\\n**Output:**ATP, NAD+, water",
+        "**Input:**NADH, ADP, water, Pi\\n\\n**Output:**ATP, NAD+, oxygen",
+        "**Input:**NAD+, ADP, oxygen, Pi\\n\\n**Output:**NADH, ATP, water",
+        "**Input:**NADPH, ADP, water, Pi\\n\\n**Output:**NADP+, ATP, oxygen"
+      ],
+      "correct_answer": 0
+    }
+  ]
+}
