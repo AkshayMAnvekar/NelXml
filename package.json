@@ -32,7 +32,7 @@
     "string-similarity": "^4.0.1",
     "webpack-hot-middleware": "^2.25.0",
     "webpack-node-externals": "^1.7.2",
-    "xlsx": "^0.15.4",
+    "xlsx": "^0.17.0",
     "xlsx-style": "^0.8.13",
     "xml2js": "^0.4.23"
   },
